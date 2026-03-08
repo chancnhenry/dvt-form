@@ -10,7 +10,9 @@
         body { font-family: Arial, sans-serif; margin: 20px; background-color: #f9f9f9; }
         h1, h2 { color: #333; }
         .section { margin-bottom: 30px; padding: 20px; background: white; border-radius: 8px; box-shadow: 0 2px 4px rgba(0,0,0,0.1); }
-        input[type="text"], input[type="number"], select { border: 1px solid #ccc; padding: 12px; border-radius: 6px; width: 200px; }
+        input[type="text"], input[type="number"], input[type="time"], select { border: 1px solid #ccc; padding: 12px; border-radius: 6px; width: 200px; font-size: 18px; }
+        input[type="time"] { width: 160px; }
+        input[type="number"] { width: 120px; }
         .radio-group, .checkbox-group { display: flex; flex-wrap: wrap; }
         input[type="radio"], input[type="checkbox"] { display: none; }
         .radio-label, .checkbox-label { 
@@ -28,6 +30,8 @@
         }
         button { background: #00bcd4; color: white; padding: 10px 20px; border: none; border-radius: 4px; cursor: pointer; font-size: 16px; }
         button:hover { background: #0097a7; }
+        #nowBtn { padding: 10px 16px; font-size: 16px; background: #80deea; color: #333; margin-left: 8px; }
+        #nowBtn:hover { background: #4dd0e1; }
         .hidden { display: none; }
         #output { white-space: pre-wrap; border: 1px solid #ccc; padding: 20px; margin-top: 30px; background: white; border-radius: 8px; }
         ol { list-style-type: decimal; }
@@ -41,6 +45,7 @@
         <div class="section">
             <label for="attendedAt">Attended at:</label>
             <input type="time" id="attendedAt">
+            <button type="button" id="nowBtn" onclick="document.getElementById('attendedAt').value = new Date().toTimeString().slice(0,5)">Now</button>
         </div>
 
         <div class="section">
