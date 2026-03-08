@@ -1,0 +1,388 @@
+<!--this is a testing code for DVT screening form-->
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>DVT Screening Form</title>
+    <style>
+        body { font-family: Arial, sans-serif; margin: 20px; background-color: #f9f9f9; }
+        h1, h2 { color: #333; }
+        .section { margin-bottom: 30px; padding: 20px; background: white; border-radius: 8px; box-shadow: 0 2px 4px rgba(0,0,0,0.1); }
+        input[type="text"], input[type="number"], select { border: 1px solid #ccc; padding: 12px; border-radius: 6px; width: 200px; }
+        .radio-group, .checkbox-group { display: flex; flex-wrap: wrap; }
+        input[type="radio"], input[type="checkbox"] { display: none; }
+        .radio-label, .checkbox-label { 
+            border: 1px solid #ccc; 
+            padding: 10px 20px; 
+            margin: 5px; 
+            background: transparent; 
+            cursor: pointer; 
+            border-radius: 4px; 
+            transition: background 0.3s, border-color 0.3s; 
+        }
+        input[type="radio"]:checked + .radio-label, input[type="checkbox"]:checked + .checkbox-label { 
+            background: #e0f7fa; 
+            border-color: #00bcd4; 
+        }
+        button { background: #00bcd4; color: white; padding: 10px 20px; border: none; border-radius: 4px; cursor: pointer; font-size: 16px; }
+        button:hover { background: #0097a7; }
+        .hidden { display: none; }
+        #output { white-space: pre-wrap; border: 1px solid #ccc; padding: 20px; margin-top: 30px; background: white; border-radius: 8px; }
+        ol { list-style-type: decimal; }
+        li { margin-bottom: 10px; }
+        p, label, li { font-size: 18px; }
+    </style>
+</head>
+<body>
+    <h1>DVT Screening Form</h1>
+    <form id="dvtForm">
+        <div class="section">
+            <label for="attendedAt">Attended at:</label>
+            <input type="time" id="attendedAt">
+        </div>
+
+        <div class="section">
+            <h2>ASSESSMENT</h2>
+            <p>A. Signs and symptoms of lower extremities deep veins thrombosis:</p>
+            <div class="radio-group">
+                <input type="radio" id="signsNegative" name="signsSymptoms" value="negative" checked>
+                <label for="signsNegative" class="radio-label">- ve</label>
+                <input type="radio" id="signsPositive" name="signsSymptoms" value="positive">
+                <label for="signsPositive" class="radio-label">+ ve</label>
+            </div>
+
+            <div id="positiveSection" class="hidden">
+                <p>* B. Specify:</p>
+                <div class="checkbox-group">
+                    <input type="checkbox" id="specifyPain" name="specify" value="Pain">
+                    <label for="specifyPain" class="checkbox-label">Pain</label>
+                    <input type="checkbox" id="specifyTenderness" name="specify" value="Tenderness">
+                    <label for="specifyTenderness" class="checkbox-label">Tenderness</label>
+                    <input type="checkbox" id="specifyCalfSwelling" name="specify" value="Calf swelling">
+                    <label for="specifyCalfSwelling" class="checkbox-label">Calf swelling</label>
+                    <input type="checkbox" id="specifyRedness" name="specify" value="Redness">
+                    <label for="specifyRedness" class="checkbox-label">Redness</label>
+                    <input type="checkbox" id="specifyTemperature" name="specify" value="Increased temperature">
+                    <label for="specifyTemperature" class="checkbox-label">Increased temperature</label>
+                    <input type="checkbox" id="specifyOedema" name="specify" value="Pitting oedema">
+                    <label for="specifyOedema" class="checkbox-label">Pitting oedema</label>
+                </div>
+
+                <p>* C. Special test:</p>
+                <label>Calf circumference: Right:
+                    <select id="calfRight" aria-label="Calf circumference right in cm"></select> cm
+                </label>
+                <label>Left:
+                    <select id="calfLeft" aria-label="Calf circumference left in cm"></select> cm
+                </label>
+
+                <p>Homan sign:</p>
+                <p>Right:</p>
+                <div class="radio-group">
+                    <input type="radio" id="homanRightNegative" name="homanRight" value="negative" checked>
+                    <label for="homanRightNegative" class="radio-label">- ve</label>
+                    <input type="radio" id="homanRightPositive" name="homanRight" value="positive">
+                    <label for="homanRightPositive" class="radio-label">+ ve</label>
+                </div>
+                <p>Left:</p>
+                <div class="radio-group">
+                    <input type="radio" id="homanLeftNegative" name="homanLeft" value="negative" checked>
+                    <label for="homanLeftNegative" class="radio-label">- ve</label>
+                    <input type="radio" id="homanLeftPositive" name="homanLeft" value="positive">
+                    <label for="homanLeftPositive" class="radio-label">+ ve</label>
+                </div>
+            </div>
+
+            <p>D. Suspected DVT:</p>
+            <div class="radio-group">
+                <input type="radio" id="suspectedNo" name="suspectedDVT" value="No" checked>
+                <label for="suspectedNo" class="radio-label">No</label>
+                <input type="radio" id="suspectedYes" name="suspectedDVT" value="Yes">
+                <label for="suspectedYes" class="radio-label">Yes</label>
+            </div>
+        </div>
+
+        <div class="section">
+            <h2>OUTCOME MEASURE</h2>
+            <p>E. Wells' Criteria:</p>
+            <ol>
+                <li>Active cancer:
+                    <div class="radio-group">
+                        <input type="radio" id="wells1_0" name="wells1" value="0" checked>
+                        <label for="wells1_0" class="radio-label">No (0)</label>
+                        <input type="radio" id="wells1_1" name="wells1" value="1">
+                        <label for="wells1_1" class="radio-label">Yes (1)</label>
+                    </div>
+                </li>
+                <li>Paresis, paralysis or recent plaster cast immobilisation of lower extremity:
+                    <div class="radio-group">
+                        <input type="radio" id="wells2_0" name="wells2" value="0" checked>
+                        <label for="wells2_0" class="radio-label">No (0)</label>
+                        <input type="radio" id="wells2_1" name="wells2" value="1">
+                        <label for="wells2_1" class="radio-label">Yes (1)</label>
+                    </div>
+                </li>
+                <li>Recent bedridden for >3 days and/or major surgery within 4 weeks:
+                    <div class="radio-group">
+                        <input type="radio" id="wells3_0" name="wells3" value="0" checked>
+                        <label for="wells3_0" class="radio-label">No (0)</label>
+                        <input type="radio" id="wells3_1" name="wells3" value="1">
+                        <label for="wells3_1" class="radio-label">Yes (1)</label>
+                    </div>
+                </li>
+                <li>Localised tenderness over distribution of deep veins:
+                    <div class="radio-group">
+                        <input type="radio" id="wells4_0" name="wells4" value="0" checked>
+                        <label for="wells4_0" class="radio-label">No (0)</label>
+                        <input type="radio" id="wells4_1" name="wells4" value="1">
+                        <label for="wells4_1" class="radio-label">Yes (1)</label>
+                    </div>
+                </li>
+                <li>Entire leg swelling:
+                    <div class="radio-group">
+                        <input type="radio" id="wells5_0" name="wells5" value="0" checked>
+                        <label for="wells5_0" class="radio-label">No (0)</label>
+                        <input type="radio" id="wells5_1" name="wells5" value="1">
+                        <label for="wells5_1" class="radio-label">Yes (1)</label>
+                    </div>
+                </li>
+                <li>Calf swelling > 3cm larger than asymptomatic side:
+                    <div class="radio-group">
+                        <input type="radio" id="wells6_0" name="wells6" value="0" checked>
+                        <label for="wells6_0" class="radio-label">No (0)</label>
+                        <input type="radio" id="wells6_1" name="wells6" value="1">
+                        <label for="wells6_1" class="radio-label">Yes (1)</label>
+                    </div>
+                </li>
+                <li>Pitting oedema (greater in symptomatic side):
+                    <div class="radio-group">
+                        <input type="radio" id="wells7_0" name="wells7" value="0" checked>
+                        <label for="wells7_0" class="radio-label">No (0)</label>
+                        <input type="radio" id="wells7_1" name="wells7" value="1">
+                        <label for="wells7_1" class="radio-label">Yes (1)</label>
+                    </div>
+                </li>
+                <li>Collateral superficial veins (non-varicose):
+                    <div class="radio-group">
+                        <input type="radio" id="wells8_0" name="wells8" value="0" checked>
+                        <label for="wells8_0" class="radio-label">No (0)</label>
+                        <input type="radio" id="wells8_1" name="wells8" value="1">
+                        <label for="wells8_1" class="radio-label">Yes (1)</label>
+                    </div>
+                </li>
+                <li>Previously documented DVT:
+                    <div class="radio-group">
+                        <input type="radio" id="wells9_0" name="wells9" value="0" checked>
+                        <label for="wells9_0" class="radio-label">No (0)</label>
+                        <input type="radio" id="wells9_1" name="wells9" value="1">
+                        <label for="wells9_1" class="radio-label">Yes (1)</label>
+                    </div>
+                </li>
+                <li>Alternative diagnosis at least as likely as DVT:
+                    <div class="radio-group">
+                        <input type="radio" id="wells10_0" name="wells10" value="0" checked>
+                        <label for="wells10_0" class="radio-label">No (0)</label>
+                        <input type="radio" id="wells10_-2" name="wells10" value="-2">
+                        <label for="wells10_-2" class="radio-label">Yes (-2)</label>
+                    </div>
+                </li>
+            </ol>
+        </div>
+
+        <div class="section">
+            <h2>FOLLOW UP MANAGEMENT</h2>
+            <div id="suspectedYesSection" class="hidden">
+                <p>If suspected DVT:</p>
+                <div class="checkbox-group">
+                    <input type="checkbox" id="managementYesMO" name="managementYes" value="Informed case MO">
+                    <label for="managementYesMO" class="checkbox-label">Informed case MO</label>
+                    <input type="checkbox" id="managementYesNurse" name="managementYes" value="Informed case nurse">
+                    <label for="managementYesNurse" class="checkbox-label">Informed case nurse</label>
+                    <input type="checkbox" id="managementYesSuspend" name="managementYes" value="Suspend mobilisation">
+                    <label for="managementYesSuspend" class="checkbox-label">Suspend mobilisation</label>
+                </div>
+                <p>Others: <input type="text" id="othersYes"></p>
+            </div>
+            <div id="suspectedNoSection">
+                <p>If no DVT sign present:</p>
+                <div class="checkbox-group">
+                    <input type="checkbox" id="managementNoTED" name="managementNo" value="TED">
+                    <label for="managementNoTED" class="checkbox-label">TED</label>
+                    <input type="checkbox" id="managementNoExercise" name="managementNo" value="Ankle and toe exercise">
+                    <label for="managementNoExercise" class="checkbox-label">Ankle and toe exercise</label>
+                    <input type="checkbox" id="managementNoMobilization" name="managementNo" value="Early mobilization">
+                    <label for="managementNoMobilization" class="checkbox-label">Early mobilization</label>
+                </div>
+                <div id="tedOptions" class="hidden">
+                    <p>1. Type:</p>
+                    <div class="radio-group">
+                        <input type="radio" id="tedShort" name="tedType" value="S">
+                        <label for="tedShort" class="radio-label">Short (S)</label>
+                        <input type="radio" id="tedRegular" name="tedType" value="R">
+                        <label for="tedRegular" class="radio-label">Regular (R)</label>
+                        <input type="radio" id="tedLong" name="tedType" value="L">
+                        <label for="tedLong" class="radio-label">Long (L)</label>
+                    </div>
+                    <p>2. Length:</p>
+                    <div class="radio-group">
+                        <input type="radio" id="tedKnee" name="tedLength" value="K">
+                        <label for="tedKnee" class="radio-label">Knee length (K)</label>
+                        <input type="radio" id="tedThigh" name="tedLength" value="T">
+                        <label for="tedThigh" class="radio-label">Thigh length (T)</label>
+                    </div>
+                    <p>3. Size:</p>
+                    <div class="radio-group">
+                        <input type="radio" id="tedSmall" name="tedSize" value="S">
+                        <label for="tedSmall" class="radio-label">Small (S)</label>
+                        <input type="radio" id="tedMedium" name="tedSize" value="M">
+                        <label for="tedMedium" class="radio-label">Medium (M)</label>
+                        <input type="radio" id="tedLarge" name="tedSize" value="L">
+                        <label for="tedLarge" class="radio-label">Large (L)</label>
+                        <input type="radio" id="tedXL" name="tedSize" value="XL">
+                        <label for="tedXL" class="radio-label">XL</label>
+                        <input type="radio" id="tedXXL" name="tedSize" value="XXL">
+                        <label for="tedXXL" class="radio-label">XXL</label>
+                    </div>
+                </div>
+                <p>Others: <input type="text" id="othersNo"></p>
+            </div>
+        </div>
+
+        <button type="button" onclick="generateForm()">Generate Complete Form and Copy</button>
+    </form>
+
+    <div id="output"></div>
+
+    <script>
+        const signsRadios = document.querySelectorAll('input[name="signsSymptoms"]');
+        signsRadios.forEach(radio => {
+            radio.addEventListener('change', () => {
+                document.getElementById('positiveSection').classList.toggle('hidden', radio.value !== 'positive');
+            });
+        });
+
+        const suspectedRadios = document.querySelectorAll('input[name="suspectedDVT"]');
+        suspectedRadios.forEach(radio => {
+            radio.addEventListener('change', () => {
+                document.getElementById('suspectedYesSection').classList.toggle('hidden', radio.value !== 'Yes');
+                document.getElementById('suspectedNoSection').classList.toggle('hidden', radio.value !== 'No');
+            });
+        });
+
+        const tedCheckbox = document.getElementById('managementNoTED');
+        tedCheckbox.addEventListener('change', () => {
+            document.getElementById('tedOptions').classList.toggle('hidden', !tedCheckbox.checked);
+        });
+
+        function initializeCalfOptions() {
+            const createOptions = (selectId) => {
+                const select = document.getElementById(selectId);
+                const placeholder = document.createElement('option');
+                placeholder.value = '';
+                placeholder.textContent = 'Select';
+                select.appendChild(placeholder);
+
+                for (let value = 10; value <= 70; value += 0.5) {
+                    const option = document.createElement('option');
+                    option.value = value.toFixed(1).replace('.0', '');
+                    option.textContent = option.value;
+                    select.appendChild(option);
+                }
+            };
+
+            createOptions('calfRight');
+            createOptions('calfLeft');
+        }
+
+        initializeCalfOptions();
+
+        function generateForm() {
+            let output = '<DVT Screening>\nAttended at ' + document.getElementById('attendedAt').value + '\n\nASSESSMENT\n';
+            
+            const signs = document.querySelector('input[name="signsSymptoms"]:checked').value;
+            output += 'A. Signs and symptoms of lower extremities deep veins thrombosis: ' + (signs === 'negative' ? '- ve' : '+ ve') + '\n\n';
+
+            if (signs === 'positive') {
+                const specifies = Array.from(document.querySelectorAll('input[name="specify"]:checked')).map(cb => cb.value).join('/ ');
+                output += '*  B. Specify: ' + (specifies || 'None') + '\n\n';
+
+                const calfRight = document.getElementById('calfRight').value;
+                const calfLeft = document.getElementById('calfLeft').value;
+                const homanRight = document.querySelector('input[name="homanRight"]:checked').value === 'negative' ? '- ve' : '+ ve';
+                const homanLeft = document.querySelector('input[name="homanLeft"]:checked').value === 'negative' ? '- ve' : '+ ve';
+
+                output += '*  C. Special test:\n-   Calf circumference: Right: ' + (calfRight || '') + ' cm; Left: ' + (calfLeft || '') + ' cm\n';
+                output += '-   Homan sign: Right: ' + homanRight + ' ; Left: ' + homanLeft + '\n\n';
+            }
+
+            const suspected = document.querySelector('input[name="suspectedDVT"]:checked').value;
+            output += 'D. Suspected DVT: ' + suspected + '\n\n';
+
+            output += 'OUTCOME MEASURE\nE. Wells\' Criteria :\n';
+
+            let total = 0;
+            for (let i = 1; i <= 10; i++) {
+                const value = parseInt(document.querySelector(`input[name="wells${i}"]:checked`).value);
+                total += value;
+                output += i + '.    ' + getWellsLabel(i) + ' - ' + value + '\n';
+            }
+
+            output += 'Total: ' + total + ' /10\n\nRisk stratification:\n';
+
+            let risk = '';
+            if (total <= 0) risk = 'Low (-2-0 points)';
+            else if (total <= 2) risk = 'Moderate (1-2 points)';
+            else risk = 'High (>3 points)';
+
+            output += '*   ' + risk + '\n\n';
+
+            output += 'F. FOLLOW UP MANAGEMENT\n';
+
+            if (suspected === 'Yes') {
+                const managements = Array.from(document.querySelectorAll('input[name="managementYes"]:checked')).map(cb => cb.value).join('\n*   ');
+                const others = document.getElementById('othersYes').value;
+                output += 'if suspected DVT:\n*   ' + managements + (managements ? '\n' : '') + (others ? '*   Others: ' + others + '\n' : '') + '\n';
+            } else {
+                let managements = Array.from(document.querySelectorAll('input[name="managementNo"]:checked')).map(cb => cb.value);
+                const tedType = document.querySelector('input[name="tedType"]:checked')?.value || '';
+                const tedLength = document.querySelector('input[name="tedLength"]:checked')?.value || '';
+                const tedSize = document.querySelector('input[name="tedSize"]:checked')?.value || '';
+                if (managements.includes('TED') && tedType && tedLength && tedSize) {
+                    managements = managements.map(m => m === 'TED' ? `TED (${tedType}/${tedLength}/${tedSize})` : m);
+                }
+                const managementsStr = managements.join('\n*   ');
+                const others = document.getElementById('othersNo').value;
+                output += 'if no DVT sign present:\n*   ' + managementsStr + (managementsStr ? '\n' : '') + (others ? '*   Others: ' + others + '\n' : '') + '\n';
+            }
+
+            document.getElementById('output').textContent = output;
+
+            navigator.clipboard.writeText(output).then(() => {
+                const btn = document.querySelector('button');
+                const original = btn.textContent;
+                btn.textContent = 'Copied!';
+                setTimeout(() => btn.textContent = original, 1000);
+            });
+
+        }
+
+        function getWellsLabel(i) {
+            const labels = [
+                'Active cancer',
+                'Paresis, paralysis or recent plaster cast immobilisation of lower extremity',
+                'Recent bedridden for >3 days and/or major surgery within 4 weeks',
+                'Localised tenderness over distribution of deep veins',
+                'Entire leg swelling',
+                'Calf swelling > 3cm larger than asymptomatic side',
+                'Pitting oedema (greater in symptomatic side)',
+                'Collateral superficial veins (non-varicose)',
+                'Previously documented DVT',
+                'Alternative diagnosis at least as likely as DVT (0/-2 if positive)'
+            ];
+            return labels[i-1];
+        }
+    </script>
+</body>
+</html>
